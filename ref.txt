@@ -1,0 +1,33 @@
+https://airhorner.com/
+https://developer.mozilla.org/es/docs/Web/Manifest
+https://developers.google.com/web/fundamentals/web-app-manifest/?hl=es
+
+https://www.apkonline.net/
+https://app-manifest.firebaseapp.com/
+
+// ----------------------------------------------------------
+// PARA SUBIR LA AWP a github.io (HTTPS) hacer
+// ----------------------------------------------------------
+instalar git desde https://git-scm.com/
+descargar cmder.net
+cmder
+git --version
+git clone https://github.com/danielsanchez68/danielsanchez68.github.io.git
+cd danielsanchez68.github.io.git
+copiar el código (HTML / JS / CSS ) en la carpeta danielsanchez68.github.io.git
+git add .
+git commit -m "v0.0.2"
+git push origin master
+
+en browser ir a danielsanchez68.github.io.git y verificar en application (consola Chrome Dev Tools) el manifest y el service worker que esten ok.
+correr los test de PWA en audit
+
+si se desea subir un cambio, hacer nuevamente (cambiando la version)
+
+git add .
+git commit -m "v0.0.3"
+git push origin master
+
+
+
+
