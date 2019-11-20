@@ -24,9 +24,9 @@ self.addEventListener('install', e => {
   e.waitUntil(
     caches.open(cacheName).then(cache => {
       return cache.addAll([
-        `/`,
-        `/index.html`,
-        `/js/main.js`,
+        `./`,
+        `./index.html`,
+        `./js/main.js`,
       ])
       //.then(() => self.skipWaiting());
     })
@@ -40,11 +40,14 @@ self.addEventListener('activate', event => {
 
 self.addEventListener('fetch', event => {
   console.log('sw fetch');
-  event.respondWith(
-    caches.open(cacheName)
-      .then(cache => cache.match(event.request, {ignoreSearch: true}))
-      .then(response => {
-      return response || fetch(event.request);
-    })
-  );
+  let url = event.request.url;
+
+  if(url.includes('.css')){
+    console.log(url);
+    console.log(event);
+    // event.respondWith(fetch('https://code.getmdl.io/1.3.0/material.light_blue-amber.min.css'))
+  }
+  else
+    event.respondWith(fetch(url));
+
 });
