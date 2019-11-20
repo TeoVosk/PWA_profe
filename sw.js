@@ -46,25 +46,26 @@ self.addEventListener('fetch', event => {
   if(url.includes('.css')){
     console.log(url);
     console.log(event);
-    // event.respondWith(
-    //   new Response(
-    //     `
-    //       body {
-    //         background-color: red;
-    //       }
-    //     `,{
-    //       headers: {
-    //         'content-type': 'text/css'
-    //       }
-    //     }
-    //   )
-    // )
+    event.respondWith(
+      new Response(
+        `
+          body {
+            background-color: red;
+          }
+        `,{
+          headers: {
+            'content-type': 'text/css'
+          }
+        }
+      )
+    )
   }
   else if(url.includes('.jpg')){
     console.log("Imagen")
     console.log(url);
     console.log(event);
   }
-  event.respondWith(fetch(url));
+  else
+    event.respondWith(fetch(url));
 
 });
