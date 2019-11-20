@@ -45,7 +45,11 @@ self.addEventListener('fetch', event => {
   if(url.includes('.css')){
     console.log(url);
     console.log(event);
-    // event.respondWith(fetch('https://code.getmdl.io/1.3.0/material.light_blue-amber.min.css'))
+  }
+  else if(url.includes('.jpg')){
+    console.log("Imagen")
+    console.log(url);
+    console.log(event);
   }
   else
     event.respondWith(fetch(url));

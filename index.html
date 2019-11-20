@@ -32,21 +32,12 @@
 
 <body>
 
-    <!-- Always shows a header, even in smaller screens. -->
+
     <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
         <header class="mdl-layout__header">
             <div class="mdl-layout__header-row">
-                <!-- Title -->
                 <span class="mdl-layout-title">Lista de Supermercado</span>
-                <!-- Add spacer, to align navigation to the right -->
                 <div class="mdl-layout-spacer"></div>
-                <!-- Navigation. We hide it in small screens. -->
-                <!-- <nav class="mdl-navigation mdl-layout--large-screen-only">
-                    <a class="mdl-navigation__link" href="">1</a>
-                    <a class="mdl-navigation__link" href="">2</a>
-                    <a class="mdl-navigation__link" href="">3</a>
-                    <a class="mdl-navigation__link" href="">4</a>
-                </nav> -->
             </div>
         </header>
         <div class="mdl-layout__drawer">
@@ -61,48 +52,27 @@
         <main class="mdl-layout__content">
             <div class="page-content">
 
-                <!-- Simple list -->
-                <!-- <ul class="demo-list-item mdl-list">
-                    <li class="mdl-list__item">
-                        <span class="mdl-list__item-primary-content">
-                            Bryan Cranston
-                        </span>
-                    </li>
-                    <li class="mdl-list__item">
-                        <span class="mdl-list__item-primary-content">
-                            Aaron Paul
-                        </span>
-                    </li>
-                    <li class="mdl-list__item">
-                        <span class="mdl-list__item-primary-content">
-                            Bob Odenkirk
-                        </span>
-                    </li>
-                </ul> -->
-
-                <!-- Ingreso Producto -->
                 <div id="contenedor-entrada">
                     <div class="w-40 mdl-textfield mdl-js-textfield">
                         <input class="mdl-textfield__input" type="text" id="entrada-producto">
                         <label class="mdl-textfield__label" for="entrada-producto">Ingrese producto</label>
                     </div>
-                    <!-- Boton agregar -->
                     <div class="w-30 ml-items">
                         <button id="boton-agregar"
                             class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored">
                             <i class="material-icons">add</i>
                         </button>
                     </div>
-                    <!-- Boton borrar -->
                     <div class="w-30 ml-items mt-boton-borrar-all">
                         <button id="boton-borrar-todo"
                                 class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored">
                             <i class="material-icons">clear</i>
                         </button>
                     </div>
-                </div>
 
+                </div>
                 <div id="lista"></div>
+                <img src="https://imagesvc.meredithcorp.io/v3/mm/image?url=https%3A%2F%2Fstatic.onecms.io%2Fwp-content%2Fuploads%2Fsites%2F35%2F2015%2F07%2F16183614%2Ffull-grocery-cart.jpg&q=85" alt="">
             </div>
         </main>
     </div>
