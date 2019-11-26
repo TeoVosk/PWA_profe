@@ -1,0 +1,23 @@
+<li class="mdl-list__item" >
+    <!-- NOMBRE -->
+    <span class="w-25 mdl-list__item-primary-content">
+        {{NOMBRE}}
+    </span>
+
+    <!-- Simple Textfield : CANTIDAD -->
+    <div class="w-25 ml-items mdl-textfield mdl-js-textfield">
+        <input class="mdl-textfield__input" type="text" id="cantidad{{INDEX}}" value="{{CANTIDAD}}" onchange="actualizarCantidad({{INDEX}},this)">
+        <label class="mdl-textfield__label" for="cantidad{{INDEX}}">{{CANTIDAD}}</label>
+    </div>
+
+    <!-- Simple Textfield : PRECIO -->
+    <div class="w-25 ml-items mdl-textfield mdl-js-textfield">
+        <input class="mdl-textfield__input" type="text" id="precio{{INDEX}}" value="{{PRECIO}}" onchange="actualizarPrecio({{INDEX}},this)">
+        <label class="mdl-textfield__label" for="precio{{INDEX}}">{{PRECIO}}</label>
+    </div>
+
+    <!-- Accent-colored raised button with ripple : BORRAR -->
+    <button class="w-25 ml-items mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" onclick="borrar({{INDEX}})">
+        <i class="material-icons">clear</i>
+    </button>                        
+</li >

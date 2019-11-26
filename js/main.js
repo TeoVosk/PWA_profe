@@ -1,48 +1,50 @@
 console.log('Lista de Supermercado en AWP v0.0.3')
 
-let productos = [/* 
-    { nombre: 'Carne', cantidad: 1, precioUnitario: 45 },
-    { nombre: 'Fideos', cantidad: 4, precioUnitario: 65 },
-    { nombre: 'Gaseosa', cantidad: 2, precioUnitario: 30 },
-    { nombre: 'Pan', cantidad: 8, precioUnitario: 77 }
- */]
+let productos = [];
+let src;
 
-let botonAgregar = document.querySelector('#boton-agregar').addEventListener('click', ()=> {
-    //console.log('boton-agregar')
-    let producto = document.querySelector('#entrada-producto').value
-    console.log(producto)
-    if(producto != '') {
-        productos.unshift({
-            nombre : producto,
-            cantidad : 1,
-            precioUnitario : 0
-        })
-        renderProductos(false)
-        document.querySelector('#entrada-producto').value = ''
-    }
-})
+function config_buttons(){
 
-let botonBorrarTodo = document.querySelector('#boton-borrar-todo').addEventListener('click', ()=> {
-    console.log('boton-borrar-todo')
-    productos = []    
-    renderProductos(false)
-})
+    $('#boton-agregar').click(()=> {
+        //console.log('boton-agregar')
+        let producto = document.querySelector('#entrada-producto').value
+        console.log(producto)
+        if(producto != '') {
+            productos.unshift({
+                nombre : producto,
+                cantidad : 1,
+                precioUnitario : 0
+            })
+            renderProductos()
+            document.querySelector('#entrada-producto').value = ''
+        }
+    })
+
+    $('#boton-borrar-todo').click(()=> {
+        console.log('boton-borrar-todo')
+        productos = []    
+        renderProductos()
+    })
+
+}
 
 let borrar = index => {
     productos.splice(index,1)
-    renderProductos(false)
+    renderProductos()
 }
 
 let actualizarCantidad = (index, e) => {
     let cantidad = parseInt(e.value)
     console.log('cantidad',index,cantidad)
     productos[index].cantidad = cantidad
+    guardarListaProductos();
 }
 
 let actualizarPrecio = (index, e) => {
     let precio = Number(e.value)
     console.log('precio',index,precio)
-    productos[index].precioUnitario = precio
+    productos[index].precioUnitario = precio;
+    guardarListaProductos();
 }
 
 
@@ -53,21 +55,98 @@ function guardarListaProductos() {
 
 function leerListaProductos() {
     if(localStorage.getItem('lista'))
-    {
         productos = JSON.parse(localStorage.getItem('lista'))
-    }
 }
 
-let ul = document.createElement('ul')
-ul.classList.add('demo-list-item')
-ul.classList.add('mdl-list')
+function renderProductos(ini) {
+    if(ini)
+        leerListaProductos();
+
+    productos;
+
+    // let src = $("#lista-template").html()
+    let template = Handlebars.compile(src);
+    let data = { productos };
+    $("div#lista").html(template(data));
+    
+
+    if(!ini) {
+        const ul = $("#contenedor-lista");
+        componentHandler.upgradeElements(ul)
+        guardarListaProductos()
+    }
+    
+}
+
+function get_from_mockapi(cb){
+    const url = "https://5ddc6a8d041ac10014de1e4c.mockapi.io/test01/pwa_clase";
+    let response;
+
+    fetch(url)
+    .then(res => res.json())
+    .then(res => {
+        response = res;
+        cb(response)
+    })
+    .catch(err => console.error(err));
+
+    
+
+}
+
+
+if ('serviceWorker' in navigator) {
+    $(window).ready(() => {
+        navigator.serviceWorker.register('./sw.js').then(function(reg) {
+            console.log('Successfully registered service worker', reg);
+        }).catch(function(err) {
+            console.warn('Error whilst registering service worker', err);
+        });
+    })
+}
+
+function start(){
+    config_buttons();
+    renderProductos(1);         
+    let res = get_from_mockapi(
+        response => {
+            fetch("../templates/lista.hbs")
+            .then(res => res.text())
+            .then(res => {
+                src = res;
+                console.log(response.slice());
+                response.forEach(element => {
+                    productos.push(element);
+                    renderProductos();            
+                });
+            })
+            .catch(err => console.error(err));
+        }
+    );
+    
+}
+
+$(document).ready(start());
+
+
+/*
+
+function init_list(){
+    let ul = document.createElement('ul')
+    ul.classList.add('demo-list-item')
+    ul.classList.add('mdl-list')
+    return ul;
+}
 
 function renderProductos(ini) {
-    if(ini) {
-        leerListaProductos()
+    let ul = document.querySelector("ul");
+    if(ini){
+        ul = init_list();
+        leerListaProductos();
     }
 
-    ul.innerHTML = ''
+    
+    ul.innerHTML = '';
     productos.forEach((producto, index) => {
         ul.innerHTML += 
         `
@@ -95,27 +174,15 @@ function renderProductos(ini) {
                 </button>                        
             </li >
         `
-        //'<li>' + producto.nombre + ' - ' + (index + 1) + '</li>'
     })
     let lista = document.querySelector('#lista')
     lista.appendChild(ul)
-    /*https://es.stackoverflow.com/questions/48082/animaci%C3%B3n-no-funciona-en-html-agregado-din%C3%A1micamente-con-javascript
-    */
+    
+
     if(!ini) {
         componentHandler.upgradeElements(ul)
         guardarListaProductos()
     }
     
 }
-
-renderProductos(true)
-
-if ('serviceWorker' in navigator) {
-    window.addEventListener('load', function() {
-        navigator.serviceWorker.register('./sw.js').then(function(reg) {
-            console.log('Successfully registered service worker', reg);
-        }).catch(function(err) {
-            console.warn('Error whilst registering service worker', err);
-        });
-    })
-}
+*/

@@ -1,3 +1,9 @@
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
 .demo-list-item {
     width: 100%;
 }
@@ -28,8 +34,12 @@
     margin-top: 10px; 
 }
 
-.img-principal {
-    margin: 10px;
+div.container-img-principal{
+    width: 100%;
+    padding: 10px;
+}
+
+img.img-principal {
     width: 100%;
     border-radius: 10px;
 }
