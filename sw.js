@@ -20,7 +20,7 @@
 const version = "0.6.20";
 const cacheName = `miapp-${version}`;
 self.addEventListener('install', e => {
-  console.log('sw install');
+  //console.log('sw install');
   e.waitUntil(
     caches.open(cacheName).then(cache => {
       return cache.addAll([
@@ -35,38 +35,38 @@ self.addEventListener('install', e => {
 });
 
 self.addEventListener('activate', event => {
-  console.log('sw activate');
+  //console.log('sw activate');
   event.waitUntil(self.clients.claim());
 });
 
 self.addEventListener('fetch', event => {
-  console.log('sw fetch');
+  //console.log('sw fetch');
   let url = event.request.url;
 
-  if(url.includes('.css')){
-    console.log(url);
-    console.log(event);
-  //   event.respondWith(
-  //     new Response(
-  //       `
-  //         body {
-  //           background-color: red;
-  //         }
-  //       `,{
-  //         headers: {
-  //           'content-type': 'text/css'
-  //         }
-  //       }
-  //     )
-  //   )
-    event.respondWith(fetch(url));
-  }
-  else if(url.includes('.jpg')){
-    console.log("Imagen")
-    console.log(url);
-    console.log(event);
-  }
-  else
+  // if(url.includes('.css')){
+  //   //console.log(url);
+  //   //console.log(event);
+  // //   event.respondWith(
+  // //     new Response(
+  // //       `
+  // //         body {
+  // //           background-color: red;
+  // //         }
+  // //       `,{
+  // //         headers: {
+  // //           'content-type': 'text/css'
+  // //         }
+  // //       }
+  // //     )
+  // //   )
+  //   event.respondWith(fetch(url));
+  // }
+  // else if(url.includes('.jpg')){
+  //   //console.log("Imagen")
+  //   //console.log(url);
+  //   //console.log(event);
+  // }
+  // else
     event.respondWith(fetch(url));
 
 });

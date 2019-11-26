@@ -1,4 +1,4 @@
-console.log('Lista de Supermercado en AWP v0.0.3')
+// console.log('Lista de Supermercado en AWP v0.0.3')
 
 let productos = [];
 let src;
@@ -6,9 +6,9 @@ let src;
 function config_buttons(){
 
     $('#boton-agregar').click(()=> {
-        //console.log('boton-agregar')
+        //// console.log('boton-agregar')
         let producto = document.querySelector('#entrada-producto').value
-        console.log(producto)
+        // console.log(producto)
         if(producto != '') {
             productos.unshift({
                 nombre : producto,
@@ -21,7 +21,7 @@ function config_buttons(){
     })
 
     $('#boton-borrar-todo').click(()=> {
-        console.log('boton-borrar-todo')
+        // console.log('boton-borrar-todo')
         productos = []    
         renderProductos()
     })
@@ -35,14 +35,14 @@ let borrar = index => {
 
 let actualizarCantidad = (index, e) => {
     let cantidad = parseInt(e.value)
-    console.log('cantidad',index,cantidad)
+    // console.log('cantidad',index,cantidad)
     productos[index].cantidad = cantidad
     guardarListaProductos();
 }
 
 let actualizarPrecio = (index, e) => {
     let precio = Number(e.value)
-    console.log('precio',index,precio)
+    // console.log('precio',index,precio)
     productos[index].precioUnitario = precio;
     guardarListaProductos();
 }
@@ -54,17 +54,19 @@ function guardarListaProductos() {
 }
 
 function leerListaProductos() {
-    if(localStorage.getItem('lista'))
+    if(localStorage.getItem('lista')){
+        console.log("lista");
         productos = JSON.parse(localStorage.getItem('lista'))
+    }
 }
 
 function renderProductos(ini) {
     if(ini)
         leerListaProductos();
 
-    productos;
+    console.log(productos);
 
-    // let src = $("#lista-template").html()
+    let src = $("#lista-template").html()
     let template = Handlebars.compile(src);
     let data = { productos };
     $("div#lista").html(template(data));
@@ -90,15 +92,13 @@ function get_from_mockapi(cb){
     })
     .catch(err => console.error(err));
 
-    
-
 }
 
 
 if ('serviceWorker' in navigator) {
     $(window).ready(() => {
         navigator.serviceWorker.register('./sw.js').then(function(reg) {
-            console.log('Successfully registered service worker', reg);
+            // console.log('Successfully registered service worker', reg);
         }).catch(function(err) {
             console.warn('Error whilst registering service worker', err);
         });
@@ -108,7 +108,7 @@ if ('serviceWorker' in navigator) {
 function start(){
     config_buttons();
     renderProductos(1);         
-    let res = get_from_mockapi(
+    get_from_mockapi(
         response => {
             fetch("../templates/lista.hbs")
             .then(res => res.text())
@@ -117,6 +117,7 @@ function start(){
                 console.log(response.slice());
                 response.forEach(element => {
                     productos.push(element);
+                    guardarListaProductos();
                     renderProductos();            
                 });
             })
